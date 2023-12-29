@@ -22,6 +22,9 @@ class Room(models.Model):
     current_participants = models.IntegerField(default=0)
     time_of_game = models.DateTimeField(null=True, blank=True)
 
+    class Meta:
+        ordering = ['-updated', '-created']
+
     def __str__(self):
         return self.name
 
