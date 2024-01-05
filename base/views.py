@@ -1,3 +1,4 @@
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.db.models import Q
 from django.shortcuts import render, redirect
@@ -17,8 +18,22 @@ def loginPage(request):
         except:
             messages.error(request, 'User does not exist')
 
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+        else:
+            messages.error(request, 'Username or password does not exist!')
+
+
     context = {}
     return render(request, 'base/login_register.html', context)
+
+
+def logOutUser(request):
+    logout(request)
+    return redirect('home')
 
 def home(request):
     q = request.GET.get('q') if request.GET.get('q') is not None else ''
