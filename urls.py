@@ -8,5 +8,6 @@ from base.views import home, room
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('base.urls'))
+    // to be added 
 ]
 
